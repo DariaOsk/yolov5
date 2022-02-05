@@ -327,3 +327,6 @@ if __name__ == '__main__':
     # tb_writer = SummaryWriter('.')
     # LOGGER.info("Run 'tensorboard --logdir=models' to view tensorboard at http://localhost:6006/")
     # tb_writer.add_graph(torch.jit.trace(model, img, strict=False), [])  # add model graph
+    from torchvision import models
+    from torchsummary import summary
+    print(model)
