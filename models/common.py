@@ -44,7 +44,8 @@ class Conv(nn.Module):
         self.act = nn.SiLU() if act is True else (act if isinstance(act, nn.Module) else nn.Identity())
 
     def forward(self, x):
-        return self.act(self.bn(self.conv(x)))
+        # return self.act(self.bn(self.conv(x))) #orig
+        return self.act(self.conv(x))
 
     def forward_fuse(self, x):
         return self.act(self.conv(x))
@@ -121,7 +122,8 @@ class BottleneckCSP(nn.Module):
     def forward(self, x):
         y1 = self.cv3(self.m(self.cv1(x)))
         y2 = self.cv2(x)
-        return self.cv4(self.act(self.bn(torch.cat((y1, y2), dim=1))))
+        #return self.cv4(self.act(self.bn(torch.cat((y1, y2), dim=1)))) #orig
+        return self.cv4(self.act(torch.cat((y1, y2), dim=1)))
 
 
 class C3(nn.Module):
