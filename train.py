@@ -157,8 +157,8 @@ def train(hyp,  # path/to/hyp.yaml or hyp dictionary
     for v in model.modules():
         if hasattr(v, 'bias') and isinstance(v.bias, nn.Parameter):  # bias
             g2.append(v.bias)
-        #if isinstance(v, nn.Conv2d): # did not work in V8 (Conv2d)
-        if isinstance(v, nn.BatchNorm2d):  # weight (no decay)                                                     #To delete BatchNormalization
+        if isinstance(v, nn.Dropout): # did not work in V8 with (Conv2d)
+        #if isinstance(v, nn.BatchNorm2d):  # weight (no decay)                                                     #To delete BatchNormalization
             g0.append(v.weight)
         elif hasattr(v, 'weight') and isinstance(v.weight, nn.Parameter):  # weight (with decay)
             g1.append(v.weight)
