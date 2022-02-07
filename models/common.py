@@ -115,15 +115,15 @@ class BottleneckCSP(nn.Module):
         self.cv2 = nn.Conv2d(c1, c_, 1, 1, bias=False)
         self.cv3 = nn.Conv2d(c_, c_, 1, 1, bias=False)
         self.cv4 = Conv(2 * c_, c2, 1, 1)
-        #self.bn = nn.BatchNorm2d(2 * c_)  # applied to cat(cv2, cv3)        #V9,V10 Only BatchNorm in standard Conv layer                     # No Batchnormalization in V8
+        self.bn = nn.BatchNorm2d(2 * c_)  # applied to cat(cv2, cv3)        #V9,V10 Only BatchNorm in standard Conv layer                     # No Batchnormalization in V8
         self.act = nn.SiLU()
         self.m = nn.Sequential(*(Bottleneck(c_, c_, shortcut, g, e=1.0) for _ in range(n)))
 
     def forward(self, x):
         y1 = self.cv3(self.m(self.cv1(x)))
         y2 = self.cv2(x)
-        #return self.cv4(self.act(self.bn(torch.cat((y1, y2), dim=1)))) #orig
-        return self.cv4(self.act(torch.cat((y1, y2), dim=1)))
+        return self.cv4(self.act(self.bn(torch.cat((y1, y2), dim=1)))) #orig
+        #return self.cv4(self.act(torch.cat((y1, y2), dim=1)))
 
 
 class C3(nn.Module):
