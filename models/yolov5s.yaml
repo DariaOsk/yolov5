@@ -45,13 +45,13 @@ head:
    #[-1, 3, C3, [512, False]],                     # non V12
    [-1, 1, Conv, [512, 1, 1]],                   #V11 #V12 replaces conv with C3
    [-1, 1, nn.Upsample, [None, 2, 'nearest']],   #V11  
-   [[-1, 10], 1, Concat, [1]],  # cat backbone P4 #V11 V13 10 - 6
+   [[-1, 6], 1, Concat, [1]],  # cat backbone P4 #V11 V13 10 - 6
    [-1, 3, C3, [512, False]],  #                 #V11
    
   # [-1, 3, C3, [256, False]],                     # non V12
    [-1, 1, Conv, [256, 1, 1]],                   #V11 V12 V13
    [-1, 1, nn.Upsample, [None, 2, 'nearest']],   #V11 V13
-   [[-1, 6], 1, Concat, [1]],  # cat backbone P3 #V11 V13 6 - 4
+   [[-1, 4], 1, Concat, [1]],  # cat backbone P3 #V11 V13 6 - 4
    [-1, 3, C3, [256, False]],  # 17 (P3/8-small) #V11 V13
 
    #[-1, 3, C3, [512, False]],                   # non V12
